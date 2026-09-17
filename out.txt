@@ -1,0 +1,102 @@
+Michael Allen
+Homework 1
+
+
+************ PROBLEM 1 *************
+
+Relational Tables:
+    
+    Entities: 
+
+        Packages(Tracking #, status, Weight)
+                    ^^^
+                    pk
+
+        Shipments(SID #,HUB #, Departure Date)
+                  ^^^    ^^^ 
+                  pk      fk
+        PackageHubs(HID #, City Name, Capacity)
+                    ^^^
+                    pk
+
+
+    Relationships:
+        
+        Transporting(Tracking #, SID #, Checkpoint Status)
+                        ^^       ^^
+                        fk       fk
+
+        Processing(HID #, SID #)
+                   ^^     ^^
+                   fk     fk
+
+
+
+************ PROBLEM 2 *************
+
+Relational Tables:
+
+       Entities:
+        
+            Laboratories(Lab Code, Building, Budget)
+                            ^^^                        
+                            pk                         
+
+            Projects(Project Code, Title)
+                      ^^^
+                      pk
+
+            Equipment(Lab Code, item #, price, Model Name)
+                       ^^^^^^^^^^
+                        pk (composite)
+                        ^^^
+                      Lab code is fk from laboratories
+
+
+        Relationships:
+            
+            Belongs(Lab Code, Item #)
+                    ^^^
+                    fk
+            
+            Assigned(Project Code, Lab Code)
+                      ^^^            ^^^
+                      fk             fk
+
+
+
+************ PROBLEM 3 *************
+
+Relational Tables:
+
+    Entities: 
+        
+        Employees(EID, email, EName, Salary, D-ID)
+                  ^^^                        ^^^
+                  pk                         fk
+
+        Departments(D-ID, Location, DName)
+                    ^^^
+                    pk
+
+    Relationships:
+        
+        Manages(EID (supervisor), EID (subordinate))
+                ^^^                     ^^^
+                fk                      pk, fk
+
+    Question: 
+        If I had to make a table to assign at most one parking permit to each 
+        employee at a time. I would make permit and attribute of the employee table.
+        There is no need to create anything else as an employee can own a permit but 
+        the permit doesn't need to exist outside of that. I would also create
+        permit price and parking location attributes to the employees. 
+
+        If multiple permits could be assigned to multiple employees at once, I would then
+        have to make a completely different table to manage the information of permits.
+        This is because I would have to store much more information. We would also store
+        who owns the permit as this information is no longer stored in the empoyees table. 
+        We would also need to include all the other information about the permits from the
+        employees table as well. This relationship would be 1 to many. Many employees can one 
+        employee per permit.
+
