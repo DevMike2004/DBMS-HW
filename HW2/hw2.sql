@@ -26,7 +26,7 @@ select ShopID, Count(PastryID) as "# of Pastries" from offers
 group by ShopID;
 
 -- name of pastries whose price is equal to the max price of their category
-select name, category, price from pastries p
+select Name, Category, Price from pastries p
 where price = (select max(price) from pastries where category = p.category);
 
 -- show the unique id's of the shops who sold pastries greater than the avg price
@@ -38,12 +38,13 @@ select distinct ShopID from offers where PastryID IN (
 );
 
 -- pastry and shop id of the oldest offer made
-select ShopID, PastryID from offers where Date_Added = (
+select ShopID as "Shop w/ oldest Order", PastryID as "Oldest Pastry Order" 
+from offers where Date_Added = (
     select min(Date_Added) from offers
 );
 
 -- get the shops that sell the most pastries
-select ShopID from offers 
+select ShopID as "Shops w/ Most Pastries" from offers 
 group by ShopID
 having count(*) = (
     select max(n) from (
@@ -52,7 +53,7 @@ having count(*) = (
 );
 
 -- get the baristas that work in seattle
-select BaristaID from employs where ShopID = (
+select BaristaID as "Baristas in Seattly" from employs where ShopID = (
     select ShopID from shops where City = "Seattle"
 );
 
