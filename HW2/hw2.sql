@@ -1,6 +1,3 @@
-
-select * from pastries;
-
 /* This is finding the average of one of the categories */
 select ROUND(AVG(Price), 2) AS avg_price from Pastries where Category = "pastry";
 
@@ -9,7 +6,8 @@ select Category, ROUND(AVG(Price), 2) from pastries
 group by Category;
 
 -- get the amount of baristas at each experience level
-select Experience_Level, COUNT(BaristaID) as Amount from baristas
+select Experience_Level, COUNT(BaristaID) as Amount 
+from baristas
 group by Experience_Level;
 
 -- get the amount of shops per city
@@ -17,17 +15,19 @@ select City, COUNT(ShopID) as Amount from shops
 group by City;
   
 -- max price of each pastry category
-SELECT * from pastries;
-SELECT category, MAX(Price) as "Max Cost" from pastries
+SELECT category, MAX(Price) as "Max Cost" 
+from pastries
 group by Category;
 
 -- how many pastries have been added to each shop
-select ShopID, Count(PastryID) as "# of Pastries" from offers
+select ShopID, Count(PastryID) as "# of Pastries" 
+from offers
 group by ShopID;
 
 -- name of pastries whose price is equal to the max price of their category
 select Name, Category, Price from pastries p
-where price = (select max(price) from pastries where category = p.category);
+where price = (select max(price) from pastries 
+    where category = p.category);
 
 -- show the unique id's of the shops who sold pastries greater than the avg price
 -- of pastries
@@ -53,7 +53,7 @@ having count(*) = (
 );
 
 -- get the baristas that work in seattle
-select BaristaID as "Baristas in Seattly" from employs where ShopID = (
+select BaristaID as "Baristas in Seattle" from employs where ShopID = (
     select ShopID from shops where City = "Seattle"
 );
 
