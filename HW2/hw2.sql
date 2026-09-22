@@ -36,6 +36,59 @@ Offers (Relationship between Shops and Pastries)
 
 ========================================================*/
 
+-- dont want to make new tables so remove them before script runs
+
+drop table if exists Baristas;
+drop table if exists Shops;
+drop table if exists Employs;
+drop table if exists Pastries;
+drop table if exists Offers;
+
+
+-- reinitialize them all
+
+create table Baristas (
+    BaristaID integer not null unique,
+    Name varchar(40),
+    Experience_Level varchar(40),
+
+    primary key (BaristaID)
+);
+
+create table Shops(
+    ShopID integer not null unique,
+    Name varchar(40),
+    City varchar(40),
+
+    primary key (ShopID)
+);
+
+create table Employs(
+    BaristaID integer not null unique,
+    ShopID integer not null unique,
+
+    primary key (BaristaID, ShopID)
+);
+
+create table Pastries(
+    PastryID integer not null unique,
+    Name varchar(40),
+    Category varchar(40),
+    Price decimal,
+
+    primary key (Pastry ID)
+);
+
+create table Offers(
+    ShopID integer not null unique,
+    PastryID integer not null unique,
+    Date_Added date,
+
+    primary key(ShopID, PastryID)
+);
+
+-- ====================================================================== --
+
 -- This is finding the average of one of the categories 
 select round(avg(Price), 2) AS avg_price from Pastries where Category = "pastry";
 
