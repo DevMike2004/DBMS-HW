@@ -40,7 +40,7 @@ Offers (Relationship between Shops and Pastries)
 select round(avg(Price), 2) AS avg_price from Pastries where Category = "pastry";
 
 -- average price of each category
-select Category, round(avg(Price), 2) from pastries
+select Category, round(avg(Price), 2) as 'Avg Price' from pastries
 -- casting round on average price to ensure it follows basic price formatting
 group by Category;
 
@@ -53,7 +53,7 @@ select City, count(ShopID) as Amount from shops
 group by City;
   
 -- max price of each pastry category
-SELECT Category, MAX(Price) as "Max Cost" -- alias for human readbility
+SELECT Category, MAX(Price) as "Max Cost" -- alias for human readability
 from pastries
 group by Category;
 
@@ -86,20 +86,21 @@ from offers where Date_Added = (
 );
 
 -- get the shops that sell the most pastries
-select ShopID as "Shops w/ Most Pastries" from offers 
-group by ShopID
-having count(*) = ( -- count(*) to get the count of each shop in offers
-    select max(n) from (
-        -- subquery to find the count of each pastry in each shop
-        select count(*) as n from offers group by ShopID
-        -- group by ensures the count of each pastry is taken per shop
-    ) as t -- sql client requires alias for a derived table
+Select Name as "Shops w/ Most Pastries" from Shops where ShopID = (
+    select ShopID from offers where PastryID = (
+        select PastryID from offers
+        group by ShopID 
+        where 
+    )
 );
 
 -- get the baristas that work in seattle
-select BaristaID as "Baristas in Seattle" from employs where ShopID = (
-    select ShopID from shops where City = "Seattle"
-    -- subquery to return all shops in seattle
+select Name as "Baristas in Seattle" from baristas 
+where BaristaID in (
+    select BaristaID from shops where ShopID = (
+        select ShopID from shops where City = 'Seattle'
+    )
+    -- double subquery to find each barista in Seattle shops
 );
 
 
